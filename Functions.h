@@ -1,74 +1,82 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-struct Coordinate {
+struct Coordinate
+{
     float x, y;
 };
 
-struct Node {
+struct Node //nó usado para a lista 
+{
     int vertex;
-    float weight; // Peso da aresta
-    Node* next;
-};
-
-struct Portal {
-    int u; 
-    int v; 
     float weight; 
+    Node *next;
 };
-
-struct Edge {
+struct Portal
+{
     int u;
     int v;
     float weight;
 };
 
-class Graph {
+struct Edge // aresta usada na lista para o grafo 
+{
+    int u;
+    int v;
+    float weight;
+};
+
+class Graph
+{
 private:
-    Node** adj; // Ponteiro para array de ponteiros para nós
-    Coordinate* coordinates; // Array de coordenadas
-    int numVertices; // Número de vértices no grafo
-    Edge* edges; // Array de pares de arestas
-    Portal* portal; // Array de portais 
-    int edgeCount; // Contador de arestas
-    int portalCount; // Contador de portais 
+    Node **adj;              // ponteiro para array de ponteiros para nós
+    Coordinate *coordinates; // array de coordenadas
+    int numVertices;         // número de vértices no grafo
+    Edge *edges;             // array de pares de arestas
+    Portal *portal;          // array de portais
+    int edgeCount;           // contador de arestas
+    int portalCount;         // contador de portais
+
 public:
     // Construtor da classe
     Graph(int vertices);
 
-    // Destrutor da classe
+    // destrutor da classe
     ~Graph();
 
-    // Função para adicionar uma aresta direcionada do vértice u para o vértice v
+    // função para adicionar uma aresta direcionada do vértice u para o vértice v
     void addEdge(int u, int v);
 
-    // Função para adicionar uma aresta portal direcionada do vertice u para o vértice v (portais tem weight = 0)
+    // função paara adicionar uma aresta portal direcionada do vertice u para o vértice v (portais tem weight = 0)
     void addPortal(int u, int v);
 
-    // Função para definir a coordenada de um vértice
+    //função para definir a coordenada de um vértice
     void setCoordinate(int vertex, float x, float y);
 
-    // Função para calcular a distância euclidiana entre dois vértices
+    // função para calcular a distância euclidiana entre dois vértices
     float calculateDistance(int u, int v);
 
-    // Função para imprimir a representação da lista de adjacência do grafo
+    // função para imprimir a representação da lista de adjacência do grafo
     void printGraph();
 
-    // Função para imprimir as coordenadas dos vértices
+    // função para imprimir as coordenadas dos vértices
     void printCoordinates();
 
-    // Função para imprimir os pares portais
+    // função para imprimir os pares portais
     void printPortal();
 
-    // Função para imprimir os pares de vértices
+    // função para imprimir os pares de vértices
     void printEdges();
 
-    // Função que implementa o algoritmo de Dijkstra e verifica se o destino é alcançável
-    bool canReachWithEnergyAndPortals(int start, int end, float energy, int maxPortals);
-
-    // Funções de acesso
+    // funções de acesso
     int getNumVertices();
-    Node* getAdjList(int vertex);
+    Node *getAdjList(int vertex);
+
+    // Função para verificar se o destino é alcançável com a energia e portais disponíveis usando Dijkstra
+    bool algoritmo_dijkstra_lista(int start, int end, float energy, int maxPortals);
+
+    // Função para verificar se o destino é alcançável com a energia e portais disponíveis usando A*
+    bool algoritmo_aestrela_lista(int start, int end, float energy, int maxPortals);
 };
 
 #endif
